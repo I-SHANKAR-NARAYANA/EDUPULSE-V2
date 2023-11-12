@@ -27,7 +27,7 @@ async function refreshData() {
 }
 allCourses = new Object();
 mongoose
-  .connect(process.env.LOCAL_MONGO_URL, {
+  .connect(process.env.MONGODB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
