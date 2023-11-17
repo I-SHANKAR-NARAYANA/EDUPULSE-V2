@@ -1,5 +1,5 @@
 import addScript from "./addScript";
-import react, { useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import pic1 from "./images/pic-1.jpg";
 import pic2 from "./images/pic-2.jpg";
@@ -20,6 +20,7 @@ import thumb7 from "./images/thumb-7.png";
 import thumb8 from "./images/thumb-8.png";
 import thumb9 from "./images/thumb-9.png";
 import { useCustomNavigation } from "./functions";
+import Sidebar from "./Sidebar";
 
 function App() {
   const {
@@ -73,16 +74,10 @@ function App() {
 
   return (
     <div>
-      <meta charSet="UTF-8" />
-      <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>allCourse</title>
-
       <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
       />
-
       <header className="header">
         <section className="flex">
           <h1 className="logname">EDUPULSE</h1>
@@ -101,40 +96,7 @@ function App() {
         </section>
       </header>
 
-      <div className="side-bar">
-        <div id="close-btn">
-          <i className="fas fa-times"></i>
-        </div>
-
-        <div className="profile">
-          <img src={picp} className="image" alt="" />
-          <h3 className="name">{parsedDet.name}</h3>
-          <p className="role">{parsedDet.selectedRole}</p>
-        </div>
-
-        <nav className="navbar">
-          <a onClick={() => navhome(parsedDet.selectedRole)}>
-            <i className="fas fa-home"></i>
-            <span>home</span>
-          </a>
-          <a onClick={navabout}>
-            <i className="fas fa-question"></i>
-            <span>about</span>
-          </a>
-          <a onClick={hell}>
-            <i className="fas fa-graduation-cap"></i>
-            <span>courses</span>
-          </a>
-          <a onClick={navteach}>
-            <i className="fas fa-chalkboard-user"></i>
-            <span>teachers</span>
-          </a>
-          <a onClick={navcon}>
-            <i className="fas fa-headset"></i>
-            <span>contact us</span>
-          </a>
-        </nav>
-      </div>
+      <Sidebar/>
 
       <section className="courses">
         <h1 className="heading">our courses</h1>

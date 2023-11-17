@@ -140,7 +140,6 @@ body.active {
 section {
    padding: 2rem;
    margin: 0 auto;
-   max-width: 1200px;
 }
 
 .heading {
@@ -222,12 +221,13 @@ section {
 }
 
 .header .flex {
+   width: 100%;
    display: grid;
    grid-template-columns: repeat(12, 1fr);
    align-items: center;
    justify-content: space-between;
    position: relative;
-   padding: 1.5rem 2rem;
+   margin: 0;
 }
 
 .header .flex .logo {
@@ -265,7 +265,7 @@ section {
 
 .icons {
    grid-row: 1;
-   grid-column: 11/13;
+   grid-column: 13/15;
 }
 
 .header .flex .icons div {
