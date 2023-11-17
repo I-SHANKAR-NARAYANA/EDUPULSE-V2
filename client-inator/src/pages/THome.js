@@ -22,6 +22,7 @@ import thumb8 from "./images/thumb-8.png";
 import thumb9 from "./images/thumb-9.png";
 import defaul from "./images/defaul.png";
 import { useCustomNavigation } from "./functions";
+import Sidebar from "./Sidebar";
 
 function App() {
   const {
@@ -200,41 +201,7 @@ function App() {
         </section>
       </header>
 
-      <div className="side-bar">
-        <div id="close-btn">
-          <i className="fas fa-times"></i>
-        </div>
-
-        <div className="profile">
-          <img src={picp} className="image" alt="" />
-          <h3 className="name">{parsedDet.name}</h3>
-          <p className="role">{parsedDet.selectedRole}</p>
-        </div>
-
-        <nav className="navbar">
-          <a onClick={hell}>
-            <i className="fas fa-home"></i>
-            <span>home</span>
-          </a>
-          <a onClick={navabout}>
-            <i className="fas fa-question"></i>
-            <span>about</span>
-          </a>
-          <a onClick={navcour}>
-            <i className="fas fa-graduation-cap"></i>
-            <span>courses</span>
-          </a>
-          <a onClick={navteach}>
-            <i className="fas fa-chalkboard-user"></i>
-            <span>teachers</span>
-          </a>
-          <a onClick={navcon}>
-            <i className="fas fa-headset"></i>
-            <span>contact us</span>
-          </a>
-        </nav>
-      </div>
-
+      <Sidebar/>
       <section className="courses">
         <h1 className="heading">our courses</h1>
 
