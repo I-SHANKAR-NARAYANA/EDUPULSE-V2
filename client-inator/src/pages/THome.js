@@ -34,6 +34,7 @@ function App() {
     navabout,
     navteach,
     navcon,
+    navatt,
   } = useCustomNavigation();
 
   const allDet = sessionStorage.getItem("dett");
@@ -231,6 +232,10 @@ function App() {
           <a onClick={navcon}>
             <i className="fas fa-headset"></i>
             <span>contact us</span>
+          </a>
+          <a onClick={navatt}>
+            <i class="fas fa-user-check"></i>
+            <span>attendance</span>
           </a>
         </nav>
       </div>

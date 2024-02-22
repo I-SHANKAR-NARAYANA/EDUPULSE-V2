@@ -12,6 +12,18 @@ const courseSchema = require("./models/courseadd");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
+var spawn = require("child_process").spawn;
+const processp = spawn("python", ["exa.py", "texxxt"]);
+processp.stdout.on("data", (data) => {
+  test = data.toString();
+});
+processp.stderr.on("data", (data) => {
+  console.log("err results: %j", data.toString("utf8"));
+});
+processp.stdout.on("end", function () {
+  console.log("Test Data", test);
+});
+
 app.use(cors());
 app.use(express.json());
 
@@ -27,7 +39,7 @@ async function refreshData() {
 }
 allCourses = new Object();
 mongoose
-  .connect(process.env.MONGODB_URL, {
+  .connect(process.env.LOCAL_MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -37,7 +49,7 @@ mongoose
   .catch((err) => {
     console.error("Error connecting to MongoDB:", err.message);
   });
-//refreshData();
+// refreshData();
 
 app.post("/api/register", async (req, res) => {
   const { name, email, password, userid, schoolid, selectedRole } = req.body;

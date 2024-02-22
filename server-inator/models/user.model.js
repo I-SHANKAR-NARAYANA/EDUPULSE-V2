@@ -18,6 +18,10 @@ const User = new mongoose.Schema(
       },
     ],
     picn: { type: Number, required: true },
+    attendance: {
+      type: Object,
+      default: {},
+    },
   },
   { collection: "user-data" }
 );

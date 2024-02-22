@@ -34,6 +34,7 @@ function App() {
     navabout,
     navteach,
     navcon,
+    navatt,
   } = useCustomNavigation();
 
   function navvid() {
@@ -196,6 +197,10 @@ function App() {
             <i className="fas fa-headset"></i>
             <span>contact us</span>
           </a>
+          <a onClick={navatt}>
+            <i class="fas fa-user-check"></i>
+            <span>attendance</span>
+          </a>
         </nav>
       </div>
 
@@ -219,7 +224,9 @@ function App() {
             <div className="tutor">
               <img src={arr[getRandomNumber()]} alt="" />
               <div>
+                {console.log(1245)}
                 <h3>{courseDet.teacher}</h3>
+                {console.log(125, courseDet)}
                 <span>{courseDet.description}</span>
               </div>
             </div>

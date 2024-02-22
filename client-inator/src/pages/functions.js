@@ -46,6 +46,10 @@ export const useCustomNavigation = () => {
     navigate("/contact");
   };
 
+  const navatt = () => {
+    navigate("/attendance");
+  };
+
   return {
     hell,
     logout,
@@ -56,5 +60,6 @@ export const useCustomNavigation = () => {
     navabout,
     navteach,
     navcon,
+    navatt,
   };
 };

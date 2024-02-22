@@ -1518,3 +1518,15 @@ input[type="radio"] {
    grid-column: 5/10;
    color: var(--black);
 }
+
+.centered-date-picker {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100vh;
+   /* Adjust height as needed */
+}
+
+.centered-datepicker {
+   text-align: center;
+}
