@@ -12,20 +12,101 @@ const courseSchema = require("./models/courseadd");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
-var spawn = require("child_process").spawn;
-const processp = spawn("python", ["exa.py", "texxxt"]);
-processp.stdout.on("data", (data) => {
-  test = data.toString();
-});
-processp.stderr.on("data", (data) => {
-  console.log("err results: %j", data.toString("utf8"));
-});
-processp.stdout.on("end", function () {
-  console.log("Test Data", test);
-});
+const { spawn } = require("child_process");
+const path = require("path");
+
+// Set the working directory explicitly
+const workingDirectory = path.join(__dirname, "../server-inator/Main/");
+
+async function takeMembers(studentArr) {
+  process.chdir(workingDirectory);
+
+  // Absolute paths to the Python script and files
+  const pythonScript = path.join(
+    __dirname,
+    "../server-inator/Main/face_recognition.py"
+  );
+  const haarCascade = path.join(
+    __dirname,
+    "../server-inator/Main/haar_face.xml"
+  );
+  const featuresFile = path.join(
+    __dirname,
+    "../server-inator/Main/features.npy"
+  );
+  const labelsFile = path.join(__dirname, "../server-inator/Main/labels.npy");
+
+  const processp = spawn("python", [pythonScript, ["Uploaded", studentArr]]);
+
+  let hell;
+
+  processp.stdout.on("data", (data) => {
+    test = data.toString();
+  });
+
+  processp.stderr.on("data", (data) => {
+    console.log("err results: %j", data.toString("utf8"));
+  });
+
+  processp.on("error", (err) => {
+    console.error("Failed to start subprocess.", err);
+  });
+
+  await new Promise((resolve, reject) => {
+    processp.stdout.on("end", () => {
+      hell = JSON.parse(test).map(Number);
+      console.log(hell);
+      resolve(); // Resolve the promise when processing ends
+    });
+  });
+
+  console.log(hell);
+  return hell;
+}
 
 app.use(cors());
 app.use(express.json());
+
+app.post("/api/attendance", async (req, res) => {
+  try {
+    const courseId = req.body.courseid;
+
+    // 1. Fetch studentsList field from db where the course id matches
+    const courseRecord = await courseSchema.findOne({
+      courseid: parseInt(req.body.courseid),
+    });
+    const firstStudentsList = courseRecord.studentsList;
+    var studentsList = await takeMembers(firstStudentsList);
+    console.log(studentsList);
+    studentsList.push(2424);
+    // 2. Find students matching with the ids and update their attendance field
+    const students = await User.find({ schoolid: { $in: studentsList } });
+    console.log("Number of students:", students.length);
+    const updatedStudents = await Promise.all(
+      students.map(async (student) => {
+        console.log(student.name);
+        console.log("entered");
+        const attendance = student.attendance || {}; // If attendance field doesn't exist, initialize it as an empty object
+        if (!attendance[courseId]) {
+          attendance[courseId] = []; // If no attendance recorded for this course, initialize it as an empty array
+        }
+        // Add today's date to attendance for this course
+        attendance[courseId].push(new Date().toISOString().slice(0, 10)); // Assuming date format YYYY-MM-DD
+        // Update the student's attendance
+        await User.findByIdAndUpdate(
+          student._id,
+          { attendance },
+          { new: true }
+        );
+      })
+    );
+
+    res.status(200).json({ message: "Attendance updated successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Attendance error" });
+  }
+});
 
 async function refreshData() {
   try {

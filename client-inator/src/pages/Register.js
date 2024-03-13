@@ -227,6 +227,24 @@ function App() {
               className="box"
             />
             <p>
+              IMAGES<span>*</span>
+            </p>
+            <br></br>
+            <input
+              type="file"
+              name="images"
+              multiple
+              style={{
+                width: "100%",
+                padding: "8px",
+                borderRadius: "40px",
+                border: "1px solid #ccc",
+                boxSizing: "border-box",
+                marginBottom: "10px",
+                display: "inline-block",
+              }}
+            />
+            <p>
               SELECT YOUR ROLE<span>*</span>
             </p>
             <div className="radio-group">

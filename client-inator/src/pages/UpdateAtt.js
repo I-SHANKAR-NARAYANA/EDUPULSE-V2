@@ -83,29 +83,22 @@ function App() {
 
   async function updateAtt(event) {
     event.preventDefault();
+    const courseid = sessionStorage.getItem("playlistcourseid");
+    console.log(courseid);
 
-    const response = await fetch("http://localhost:1337/api/login", {
+    const response = await fetch("http://localhost:1337/api/attendance", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         selectedDate,
+        courseid: courseid,
       }),
     });
 
     const data = await response.json();
-    if (data.user) {
-      sessionStorage.setItem("dett", JSON.stringify(data.det));
-      alert("Login Successful");
-      if (data.det.selectedRole === "teacher") {
-        navigate("/thome");
-      } else if (data.det.selectedRole === "student") {
-        navigate("/shome");
-      }
-    } else {
-      alert("Check username and password");
-    }
+    console.log(data.message);
   }
 
   useEffect(() => {
